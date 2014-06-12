@@ -1,0 +1,26 @@
+<?php
+/**
+ * Kittencup Module
+ *
+ * @date 2014 14-6-12 上午10:01
+ * @copyright Copyright (c) 2014-2015 Kittencup. (http://www.kittencup.com)
+ * @license   http://kittencup.com
+ */
+?>
+<?=$this->Doctype();?>
+<html>
+    <head>
+        <?=$this->HeadMeta()->setCharset('utf-8');?>
+        <?=$this->HeadLink()
+            ->prependStylesheet($this->cdn() . '/vendor/bootstrap3/css/bootstrap.min.css');
+        ?>
+        <?=$this->HeadScript()
+            ->prependFile($this->cdn() . '/vendor/bootstrap3/js/bootstrap.min.js');
+        ?>
+    </head>
+    <body>
+        <div class="container">
+            <?=$this->content;?>
+        </div>
+    </body>
+</html>
