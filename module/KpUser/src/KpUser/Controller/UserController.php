@@ -34,8 +34,9 @@ class UserController extends AbstractActionController implements UserModuleOptio
             $this->redirect()->toRoute('KpUser-user', ['action' => 'disabledRegister']);
         }
 
+        $formElementManager = $this->serviceLocator->get('formElementManager');
 
-        $form = new UserRegister();
+        $form = $formElementManager->get('KpUser\Form\UserRegister');
 
         $request = $this->getRequest();
 
@@ -57,15 +58,16 @@ class UserController extends AbstractActionController implements UserModuleOptio
                     ->setUserEntity($userEntity)
                     ->setServiceLocator($this->serviceLocator);
 
-
                 $responseCollection = $this->getEventManager()->trigger(User::USER_REGISTER_PER, $userEvent, function ($callbackReturn) {
                     return $callbackReturn === false;
                 });
 
                 if ($responseCollection->last() !== false) {
-                    echo $userEvent->propagationIsStopped();
-                    // ... 具体注册事情
 
+                    // 将数据保存在数据库里
+                    $userTable = $this->serviceLocator->get('KpUser\Table\UserTable');
+
+                    var_dump($userTable->select());
                     $this->getEventManager()->trigger('user.register.fail');
                     $this->getEventManager()->trigger('user.register.post');
                     exit('....end');

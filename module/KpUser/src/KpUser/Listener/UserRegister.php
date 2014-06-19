@@ -25,6 +25,7 @@ class UserRegister implements ListenerAggregateInterface
         $this->listeners[] = $events->getSharedManager()->attach('*', User::USER_REGISTER_PER, [$this, 'checkUsername']);
         $this->listeners[] = $events->getSharedManager()->attach('*', User::USER_REGISTER_PER, [$this, 'regDate']);
         $this->listeners[] = $events->getSharedManager()->attach('*', User::USER_REGISTER_PER, [$this, 'regIp']);
+
     }
 
     public function checkUsername(EventInterface $event)

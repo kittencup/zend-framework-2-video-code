@@ -17,6 +17,7 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\MvcEvent;
 
@@ -25,18 +26,33 @@ class Module implements ConfigProviderInterface,
     DependencyIndicatorInterface,
     ControllerProviderInterface,
     ServiceProviderInterface,
-    BootstrapListenerInterface
+    BootstrapListenerInterface,
+    FormElementProviderInterface
 {
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
 
+
     public function getServiceConfig()
     {
         return [
             'factories' => [
-                'UserModuleOptions' => 'KpUser\Service\Factory\UserModuleOptions'
+                'UserModuleOptions' => 'KpUser\Service\Factory\UserModuleOptions',
+            ],
+            'invokables'=>[
+                'KpUser\Table\UserTable' => 'KpUser\Table\UserTable'
+            ]
+        ];
+    }
+
+    public function getFormElementConfig()
+    {
+        return [
+            'invokables' => [
+                'KpUser\Form\UserRegister' => 'KpUser\Form\UserRegister',
+                'KpUser\Form\UserLogin' => 'KpUser\Form\UserLogin'
             ]
         ];
     }
@@ -85,7 +101,7 @@ class Module implements ConfigProviderInterface,
 
         $eventManager->getSharedManager()->attach(__NAMESPACE__, MvcEvent::EVENT_DISPATCH, function (EventInterface $e) {
             $e->getTarget()->layout('kp-user-layout');
-        },2);
+        }, 2);
     }
 
 }

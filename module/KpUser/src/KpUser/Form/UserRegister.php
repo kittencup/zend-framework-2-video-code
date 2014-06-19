@@ -8,6 +8,8 @@
  */
 namespace KpUser\Form;
 
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
+
 class UserRegister extends UserBase
 {
     public function __construct()
@@ -23,7 +25,6 @@ class UserRegister extends UserBase
         ],[
             'priority'=>98
         ]);
-
 
         $this->add([
             'type'=>'submit',
