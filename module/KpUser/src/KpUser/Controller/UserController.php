@@ -21,6 +21,26 @@ class UserController extends AbstractActionController implements UserModuleOptio
 {
     use UserModuleOptionsTrait;
 
+    public function indexAction()
+    {
+        $userTable = $this->serviceLocator->get('KpUser\Table\UserTable');
+
+        /* @var \Zend\Paginator\Paginator $userPaginator */
+        $userPaginator = $userTable->fetchUserPaginator();
+
+
+        $request = $this->getRequest();
+
+        $page = $request->getQuery('page', 1);
+
+        $userPaginator->setCurrentPageNumber($page);
+
+        return [
+            'userPaginator' => $userPaginator
+        ];
+
+    }
+
     public function disabledRegisterAction()
     {
         if (!$this->userModuleOptions->getDisabledRegister()) {
@@ -67,10 +87,13 @@ class UserController extends AbstractActionController implements UserModuleOptio
                     // 将数据保存在数据库里
                     $userTable = $this->serviceLocator->get('KpUser\Table\UserTable');
 
-                    var_dump($userTable->select());
-                    $this->getEventManager()->trigger('user.register.fail');
-                    $this->getEventManager()->trigger('user.register.post');
-                    exit('....end');
+                    if ($userTable->saveUser($userEntity)) {
+                        $this->getEventManager()->trigger('user.register.post');
+                    } else {
+                        $this->getEventManager()->trigger('user.register.fail');
+                    }
+
+                    $this->redirect()->toRoute('KpUser-user', ['action' => 'login']);
                 }
 
             }

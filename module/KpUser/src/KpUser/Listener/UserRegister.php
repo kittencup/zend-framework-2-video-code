@@ -43,11 +43,16 @@ class UserRegister implements ListenerAggregateInterface
 
     public function regDate(EventInterface $event)
     {
-        echo __FUNCTION__, '<br>';
+        $userEntity = $event->getUserEntity();
+        $userEntity->setRegDate(time());
     }
 
     public function regIp(EventInterface $event)
     {
-        echo __FUNCTION__, '<br>';
+        $request = $event->getServiceLocator()->get('request');
+
+        $userEntity = $event->getUserEntity();
+        $userEntity->setRegIp($request->getServer('REMOTE_ADDR'));
+
     }
 }

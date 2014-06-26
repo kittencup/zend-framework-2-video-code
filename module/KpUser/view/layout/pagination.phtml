@@ -1,0 +1,21 @@
+<?php
+/**
+ * Kittencup Module
+ *
+ * @date 2014 14-6-26 下午3:11
+ * @copyright Copyright (c) 2014-2015 Kittencup. (http://www.kittencup.com)
+ * @license   http://kittencup.com
+ */
+
+?>
+<ul class="pagination">
+    <li><a href="<?= $this->url(null, ['action' => 'index'], ['query' => ['page' => $this->first]]); ?>">&laquo;</a>
+    </li>
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <li class="<?=$page == $this->current ? 'active' : '' ;?>">
+            <a href="<?= $this->url(null, ['action' => 'index'], ['query' => ['page' => $page]]); ?>"><?= $page ?></a>
+        </li>
+    <?php endforeach; ?>
+
+    <li><a href="<?= $this->url(null, ['action' => 'index'], ['query' => ['page' => $this->last]]); ?>">&raquo;</a></li>
+</ul>

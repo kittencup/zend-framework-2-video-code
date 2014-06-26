@@ -84,7 +84,6 @@ class PaginationControl extends AbstractHelper
 
             $partial = $partial[0];
         }
-
         $partialHelper = $this->view->plugin('partial');
         return $partialHelper($partial, $pages);
     }

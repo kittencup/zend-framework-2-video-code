@@ -10,6 +10,7 @@
 namespace KpUser;
 
 use KpUser\Event\User;
+use KpUser\Listener\Paginator;
 use KpUser\Listener\UserRegister;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -93,7 +94,7 @@ class Module implements ConfigProviderInterface,
 
         $eventManager = $application->getEventManager();
         $eventManager->attach(new UserRegister());
-
+        $eventManager->attach(new Paginator());
 
 //        $eventManager->attach(MvcEvent::EVENT_DISPATCH,function(EventInterface $e){
 //            $e->getTarget()->layout('kp-user-layout');

@@ -14,7 +14,8 @@ return [
             __DIR__ . '/../view',
         ],
         'template_map'=>[
-            'kp-user-layout'=> __DIR__ .'/../view/layout/layout.phtml'
+            'kp-user-layout'=> __DIR__ .'/../view/layout/layout.phtml',
+            'kp-user-pagination'=>__DIR__ .'/../view/layout/pagination.phtml'
         ]
     ],
 

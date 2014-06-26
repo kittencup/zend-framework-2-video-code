@@ -1,0 +1,27 @@
+<?php
+/**
+ * Kittencup Module
+ *
+ * @date 2014 14-6-26 下午2:53
+ * @copyright Copyright (c) 2014-2015 Kittencup. (http://www.kittencup.com)
+ * @license   http://kittencup.com
+ */
+
+?>
+<table class="table">
+    <tr>
+        <th>用户名</th>
+        <th>注册日期</th>
+        <th>注册ip</th>
+    </tr>
+    <?php foreach ($userPaginator as $userEntity):?>
+    <tr>
+        <td><?=$userEntity->getUsername();?></td>
+        <td><?=$userEntity->getRegDate();?></td>
+        <td><?=$userEntity->getRegIp();?></td>
+    </tr>
+    <?php endforeach;?>
+</table>
+
+
+<?=$this->paginationControl($userPaginator);?>

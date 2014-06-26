@@ -17,7 +17,7 @@ class User
     protected $email;
     protected $oldPassword;
     protected $lastPasswordChangeTime;
-    protected $regData;
+    protected $regDate;
     protected $lastLoginDate;
     protected $regIp;
     protected $lastLoginIp;
@@ -135,19 +135,19 @@ class User
     }
 
     /**
-     * @param mixed $regData
+     * @param mixed $regDate
      */
-    public function setRegData($regData)
+    public function setRegDate($regDate)
     {
-        $this->regData = $regData;
+        $this->regDate = $regDate;
     }
 
     /**
      * @return mixed
      */
-    public function getRegData()
+    public function getRegDate()
     {
-        return $this->regData;
+        return $this->regDate;
     }
 
     /**
@@ -181,6 +181,8 @@ class User
     {
         return $this->username;
     }
+
+
 
 
 }
